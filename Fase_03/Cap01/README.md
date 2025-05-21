@@ -97,7 +97,60 @@ A primeira parte da entrega contempla a simulação do circuito de sensores util
 Segue abaixo o código comentado do ESP32:
 
 ````
-Inserir aqui
+#include <Arduino.h>
+#include "DHT.h"
+
+// Definição dos pinos utilizados
+
+
+#define PIN_FOSFORO 13      // Botão representando presença de fósforo
+#define PIN_POTASSIO 12     // Botão representando presença de potássio
+#define PIN_PH_SENSOR 34    // Pino analógico para leitura do sensor de pH (LDR)
+#define PIN_UMIDADE 14      // Pino de dados do sensor DHT22 (umidade)
+#define PIN_RELE 27         // Relé que aciona a bomba de irrigação
+#define LED 26              // LED que indica quando a irrigação está ativa
+
+DHT dht(PIN_UMIDADE, DHT22); 
+
+void setup() {
+  Serial.begin(115200); // Inicia a comunicação serial
+
+  // Define os botões como entradas
+  pinMode(PIN_FOSFORO, INPUT_PULLUP); 
+  pinMode(PIN_POTASSIO, INPUT_PULLUP);
+  // Define os atuadores como saída
+  pinMode(PIN_RELE, OUTPUT);
+  pinMode(LED, OUTPUT);
+  // Inicia o sensor de umidade
+  dht.begin();
+}
+
+void loop() {
+  // Leitura dos botões: LOW significa que o botão foi pressionado
+  bool fosforo = digitalRead(PIN_FOSFORO) == LOW;
+  bool potassio = digitalRead(PIN_POTASSIO) == LOW;
+  // Leitura da umidade relativa do ar (simulando a umidade do solo)
+  float umidade = dht.readHumidity();
+  // Leitura analógica do pH usando LDR (0-4095 convertido para 0.0-14.0)
+  int phAnalog = analogRead(PIN_PH_SENSOR);
+  float ph = map(phAnalog, 0, 4095, 0, 14); // Conversão proporcional
+
+  // Definição da lógica de irrigação:
+  bool irrigar = umidade < 50;
+
+  // RELE: liga quando a irrigação está ativa
+  // LED: acende quando a irrigação está ativa
+  digitalWrite(PIN_RELE, irrigar ? HIGH : LOW);
+  digitalWrite(LED, irrigar ? HIGH : LOW);
+
+   // Exibe no monitor serial os valores e o estado do sistema
+  Serial.printf("Fosforo: %d | Potassio: %d | Umidade: %.1f%% | pH: %.1f | Irrigacao: %s\n",
+                fosforo, potassio, umidade, ph,
+                irrigar ? "ATIVA" : "INATIVA");
+
+  delay(2000);
+}
+
 ````
 
 ### 🖼️ Circuito
