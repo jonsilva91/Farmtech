@@ -428,6 +428,32 @@ Os dados vêm da tabela `Aplicacao`, que armazena tanto os valores de nutrientes
 
 ![Demonstração do dashboard](assets/demo.gif)
 
+## ESP32
+
+### Componentes utilizados 
+
+* Placa ESP32
+* LCD 16x2(I2C)
+* DHT22 - Monitor de temperatura e umidade
+* LED Azul - Alerta de umidade baixa
+* LED Vermelho - Alerta de temperatura alta
+
+### Funcionalidade
+
+- Monitoramento de temperatura e umidade
+- Monitoramento de Nutrientes do solo (NPK), Simulado.
+- Alerta visual de temperatura alta e umidade baixa
+- LCD - Painel de métricas de temperatura e umidade
+- LCD - Paninel de métricas de nutrientes NPK
+- Gestão de Serial Plot, podendo ser Nutrientes(NPK) ou Temperatura/Umidade.
+
+### Desmostração
+
+![Desmonstração ESP32](assets/esp32-fase4-demo.gif)
+
+### Links
+
+[Projeto no Wokwi](https://wokwi.com/projects/434237148498906113)
 
 ## ✅ Conclusão
 
