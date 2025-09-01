@@ -27,7 +27,7 @@
 
 ---
 
-> **Importante:** conforme o enunciado, **este README é apenas um guia de navegação**. Toda a descrição completa, análises, gráficos e conclusões **estão dentro do Jupyter Notebook** desta fase. Não repetimos aqui o conteúdo do notebook.
+> **Importante:** conforme o enunciado, **este README é apenas um guia de navegação**. Toda a descrição completa, análises, gráficos e conclusões da entrega 1 **estão dentro do Jupyter Notebook** desta fase. Não repetimos aqui o conteúdo do notebook.
 
 ## 📌 Conteúdo da Fase 05
 
@@ -146,13 +146,15 @@ Comparar custo **On-Demand (100%)** entre **us-east-1 (N. Virginia)** e **sa-eas
 
 **Prints (VA):**
 
-- `aws/screenshots/ec2-us-east-1-instance.png` — tela com `t3.micro` selecionada + On-Demand
-- `aws/screenshots/ec2-us-east-1-calc.png` — Show calculations com o mensal
+- ![aws/screenshots/ec2-us-east-1-instance.png](aws/screenshots/N.%20Virginia2.png) — tela com `t3.micro` selecionada
+- ![aws/screenshots/ec2-us-east-1-ondemand.png](aws/screenshots/N.%20Virginia3.png) — On-Demand
+- ![aws/screenshots/ec2-us-east-1-calc.png](aws/screenshots/N.%20Virginia6.png) — Show calculations com o mensal
 
 **Prints (SP):**
 
-- `aws/screenshots/ec2-sa-east-1-instance.png`
-- `aws/screenshots/ec2-sa-east-1-calc.png`
+- ![aws/screenshots/ec2-sa-east-1-instance.png](aws/screenshots/SAO02.png) — tela com `t3.micro` selecionada
+- ![<img src="aws/screenshots/SAO04.png" height="420" width="420" alt="on demand" — sa-east-1>](aws/screenshots/SAO04.png) — On-Demand
+- ![<img src="aws/screenshots/SAO05.png" height="420" alt="Show calculations" — sa-east-1>](aws/screenshots/SAO05.png) — Show calculations com o mensal
 
 #### B) S3 (Storage)
 
@@ -164,10 +166,12 @@ Comparar custo **On-Demand (100%)** entre **us-east-1 (N. Virginia)** e **sa-eas
 
 **Prints (VA e SP):**
 
-- `aws/screenshots/s3-us-east-1-50gb.png`
-- `aws/screenshots/s3-sa-east-1-50gb.png`
+- ![aws/screenshots/ec2-us-east-1-hdd.png](aws/screenshots/N.%20Virginia5.png) — Hard Drive N. Virgínia
+- ![aws/screenshots/ec2-sa-east-1-calc.png](aws/screenshots/SAO06.png) — Hard Drive São Paulo
 
-- `aws/screenshots/estimate-summary.png`
+**Estimativa:**
+
+- ![aws/screenshots/estimate-summary.pn](aws/screenshots/Estimativa.png) - Estimativa
 
 ---
 
