@@ -146,15 +146,25 @@ Comparar custo **On-Demand (100%)** entre **us-east-1 (N. Virginia)** e **sa-eas
 
 **Prints (VA):**
 
-- ![aws/screenshots/ec2-us-east-1-instance.png](aws/screenshots/N.%20Virginia2.png) — tela com `t3.micro` selecionada
-- ![aws/screenshots/ec2-us-east-1-ondemand.png](aws/screenshots/N.%20Virginia3.png) — On-Demand
-- ![aws/screenshots/ec2-us-east-1-calc.png](aws/screenshots/N.%20Virginia6.png) — Show calculations com o mensal
+- **Tela com `t3.micro` selecionada**  
+  <img src="aws/screenshots/N.%20Virginia2.png" width="720" alt="t3.micro — us-east-1">
+
+- **On-Demand**  
+  <img src="aws/screenshots/N.%20Virginia3.png" width="420" alt="On-Demand — us-east-1">
+
+- **Show calculations (mensal)**  
+  <img src="aws/screenshots/N.%20Virginia6.png" width="720" alt="Show calculations — us-east-1">
 
 **Prints (SP):**
 
-- ![aws/screenshots/ec2-sa-east-1-instance.png](aws/screenshots/SAO02.png) — tela com `t3.micro` selecionada
-- ![<img src="aws/screenshots/SAO04.png" height="420" width="420" alt="on demand" — sa-east-1>](aws/screenshots/SAO04.png) — On-Demand
-- ![<img src="aws/screenshots/SAO05.png" height="420" alt="Show calculations" — sa-east-1>](aws/screenshots/SAO05.png) — Show calculations com o mensal
+- **Tela com `t3.micro` selecionada**  
+  <img src="aws/screenshots/SAO02.png" width="720" alt="t3.micro selecionada — sa-east-1">
+
+- **On-Demand**  
+  <img src="aws/screenshots/SAO04.png" width="420" alt="On-Demand — sa-east-1">
+
+- **Show calculations (mensal)**  
+  <img src="aws/screenshots/SAO05.png" width="720" alt="Show calculations — sa-east-1">
 
 #### B) S3 (Storage)
 
@@ -166,12 +176,16 @@ Comparar custo **On-Demand (100%)** entre **us-east-1 (N. Virginia)** e **sa-eas
 
 **Prints (VA e SP):**
 
-- ![aws/screenshots/ec2-us-east-1-hdd.png](aws/screenshots/N.%20Virginia5.png) — Hard Drive N. Virgínia
-- ![aws/screenshots/ec2-sa-east-1-calc.png](aws/screenshots/SAO06.png) — Hard Drive São Paulo
+- **Hard Drive — N. Virginia**  
+  <img src="aws/screenshots/N.%20Virginia5.png" width="720" alt="Hard Drive — N. Virginia">
+
+- **Hard Drive — São Paulo**  
+  <img src="aws/screenshots/SAO06.png" width="720" alt="Hard Drive — São Paulo">
 
 **Estimativa:**
 
-- ![aws/screenshots/estimate-summary.pn](aws/screenshots/Estimativa.png) - Estimativa
+- **Estimate summary**  
+  <img src="aws/screenshots/Estimativa.png" width="720" alt="Estimate summary">
 
 ---
 
