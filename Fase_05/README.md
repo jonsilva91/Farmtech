@@ -89,10 +89,8 @@
 - **Dataset:** [`data/crop_yield.csv`](../data/crop_yield.csv)
 - **Prints AWS Calculator:** [`aws/screenshots/`](./aws/screenshots/)
 - **Vídeos (não listados):**
-  - Entrega 1 (ML): https://youtu.be/VIDEO_ID_ENTREGA1
-  - Entrega 2 (AWS): https://youtu.be/VIDEO_ID_ENTREGA2
-
-> Substitua `VIDEO_ID_ENTREGA1` e `VIDEO_ID_ENTREGA2` pelos IDs reais.
+  - Entrega 1 (ML): https://youtu.be/svwXQuMFJWw
+  - Entrega 2 (AWS): https://youtu.be/JwBOi_SjG9M
 
 ---
 

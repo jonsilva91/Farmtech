@@ -19,9 +19,9 @@ Este repositório está organizado da seguinte forma:
 ## 🎬 Demonstração (Fase 05)
 
 - **Entrega 1 (ML):**  
-  [![Vídeo Entrega 1](https://img.youtube.com/vi/VIDEO_ID_ENTREGA1/mqdefault.jpg)](https://youtu.be/VIDEO_ID_ENTREGA1)
+  [![Vídeo Entrega 1](https://img.youtube.com/vi/svwXQuMFJWw/mqdefault.jpg)](https://youtu.be/svwXQuMFJWw)
 - **Entrega 2 (AWS):**  
-  [![Vídeo Entrega 2](https://img.youtube.com/vi/VIDEO_ID_ENTREGA2/mqdefault.jpg)](https://youtu.be/VIDEO_ID_ENTREGA2)
+  [![Vídeo Entrega 2](https://img.youtube.com/vi/JwBOi_SjG9M/mqdefault.jpg)](https://youtu.be/JwBOi_SjG9M)
 
 ## 👨‍🏫 Professores
 
