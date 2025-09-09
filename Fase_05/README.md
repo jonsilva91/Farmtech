@@ -91,10 +91,11 @@
 - **Vídeos (não listados):**
   - Entrega 1 (ML): https://youtu.be/svwXQuMFJWw
   - Entrega 2 (AWS): https://youtu.be/JwBOi_SjG9M
+  - Ir Além: - https://youtu.be/frUAkJVX0Os
 
 ---
 
-## 🧪 Como reproduzir (mínimo para correção)
+## 🧪 Como reproduzir
 
 ```bash
 # 1) Ambiente virtual
@@ -220,13 +221,139 @@ Comparar custo **On-Demand (100%)** entre **us-east-1 (N. Virginia)** e **sa-eas
 
 ---
 
-### 🎬 Vídeo
+### 🎬 Como Reproduzir
 
 1. EC2 **VA**: selecionar `t3.micro` + **On-Demand** → **Show calculations**.
 2. Duplicar para **SP** e repetir.
-3. Adicionar **S3 Standard 50 GB** em **VA** e em **SP** (mostrar monthly).
-4. Mostrar os **prints** e a **tabela** no README.
-5. Concluir: **escolha por São Paulo** (compliance + latência) e o **trade-off de custo**.
+3. Adicionar **S3 Standard 50 GB** em **VA** e em **SP**.
+
+---
+
+# Ir Além
+
+## ✅ Requisitos
+
+- **Windows 10/11**
+- **VS Code + PlatformIO** (ESP32)
+- **Python 3.10+** e `pip`
+- **Node.js 18+** e `npm`
+- (Opcional) **cloudflared** para túnel HTTPS:
+  ```powershell
+  winget install Cloudflare.Cloudflared
+  ```
+
+---
+
+# ▶️ Como rodar o **Ir Além**
+
+## 1) Subir o servidor Node.js (coletor + dashboard)
+
+```powershell
+cd ir_alem\server_node
+npm install
+npm start
+```
+
+- Teste: `http://localhost:5000/health`
+- Dashboard: `http://localhost:5000/`
+
+## 2) (Opcional) Expor via Cloudflared (HTTPS público)
+
+```powershell
+cloudflared tunnel --url http://localhost:5000
+```
+
+- Teste: `https://SEU_SUBDOMINIO.trycloudflare.com/health`
+
+## 3) Treinar o modelo (Scikit-learn)
+
+```powershell
+cd ir_alem\ml
+pip install -r requirements.txt
+python train_baseline.py
+```
+
+> Pipeline: `SimpleImputer(median) → StandardScaler → LogisticRegression` → salva `ml/model.joblib`.
+
+## 4) Inferência em tempo real
+
+```powershell
+cd ir_alem\ml
+python infer_realtime.py
+```
+
+- Última predição:
+  - Local: `http://localhost:5000/latest`
+  - Túnel: `https://SEU_SUBDOMINIO.trycloudflare.com/latest`
+
+## 5) ESP32 — firmware e envio de dados
+
+**Conexões**
+
+- **BME280/BMP280 (I²C)**: 3V3, GND, **SDA=GPIO21**, **SCL=GPIO22**, **SDO→GND** (`0x76`)
+  > **Soldar os pinos** é necessário.
+- **Umidade do solo (capacitivo)**: 3V3, GND, **AOUT=GPIO34**
+
+**platformio.ini**
+
+```ini
+[env:esp32dev]
+platform = espressif32
+board = esp32doit-devkit-v1
+framework = arduino
+
+monitor_speed = 115200
+monitor_dtr = 0
+monitor_rts = 0
+
+lib_deps =
+  adafruit/Adafruit BME280 Library @ ^2.2.4
+  adafruit/Adafruit BMP280 Library @ ^2.6.8
+  adafruit/Adafruit Unified Sensor @ ^1.1.14
+  adafruit/Adafruit BusIO @ ^1.16.1
+```
+
+**Destino no código**
+
+- **Sem túnel (rede local)**
+  ```cpp
+  const char* SERVER_BASE = "http://SEU_IP_LOCAL:5000"; // ex: http://192.168.0.23:5000
+  HTTPClient http;
+  http.begin(String(SERVER_BASE) + "/ingest");
+  ```
+- **Com túnel (HTTPS)**
+  ```cpp
+  #include <WiFiClientSecure.h>
+  WiFiClientSecure secure; secure.setInsecure(); // DEV
+  const char* TUNNEL_URL = "https://SEU_SUBDOMINIO.trycloudflare.com";
+  HTTPClient http;
+  http.begin(secure, String(TUNNEL_URL) + "/ingest");
+  ```
+
+**Build / Upload / Monitor**
+
+```powershell
+pio run
+pio run -t upload
+pio device monitor
+```
+
+## 6) (Opcional) Simular dados sem hardware
+
+```powershell
+cd ir_alem\ml
+python replay.py   # alimenta data/raw/telemetry.jsonl gradualmente
+```
+
+---
+
+## Endpoints (resumo)
+
+- `GET /health` — status
+- `POST /ingest` — recebe telemetria e grava `telemetry.jsonl`
+- `POST /inference` — recebe inferência e atualiza `/latest`
+- `GET /latest` — última predição
+- `GET /` — dashboard simples (badge de saúde)
 
 ---
 
@@ -236,6 +363,11 @@ Comparar custo **On-Demand (100%)** entre **us-east-1 (N. Virginia)** e **sa-eas
   - **`README.md`** — Guia curto que aponta para o notebook, dataset, prints da AWS e vídeos.
   - **`data/`**
     - `crop_yield.csv`
+  - **`ir_além/`**
+    - `data/`
+    - `esp32/`
+    - `notebooks/`
+    - `server_http/`
   - **`aws/`**
     - **`screenshots/`**
       - `calc-sp.png`
@@ -253,7 +385,6 @@ Comparar custo **On-Demand (100%)** entre **us-east-1 (N. Virginia)** e **sa-eas
 
   - **Entrega 1 (ML):** EDA do `crop_yield.csv`, clusterização **KMeans (k=6 por silhueta)**, 5 modelos de regressão, validação `RepeatedKFold`, métricas **RMSE/MAE/R²**. Notebook `JonasLuisdaSilva_rm561465_pbl_fase4.ipynb` com todas as células executadas.
   - **Entrega 2 (Cloud – AWS):** Estimativa **On-Demand (100%)** para Linux **2 vCPUs, 1 GiB RAM, até 5 Gbps, 50 GB (HD)**; comparação **São Paulo (BR)** × **N. Virginia (EUA)**; **justificativa técnica**. Prints adicionados em `Fase_05/aws/screenshots/`.
-  - **README (Fase 05):** guia minimalista apontando para notebook, dataset, prints e vídeos.
 
 - **0.4.0 - 20/06/2025**
 
