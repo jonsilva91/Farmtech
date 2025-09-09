@@ -23,6 +23,7 @@ Este repositório está organizado da seguinte forma:
 - **Entrega 2 (AWS):**  
   [![Vídeo Entrega 2](https://img.youtube.com/vi/JwBOi_SjG9M/mqdefault.jpg)](https://youtu.be/JwBOi_SjG9M)
 - **Ir Além(opção 2):**
+
   [![Ir Além](https://img.youtube.com/vi/frUAkJVX0Os/mqdefault.jpg)](https://youtu.be/frUAkJVX0Os)
 
 ## 👨‍🏫 Professores
