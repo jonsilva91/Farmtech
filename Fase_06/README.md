@@ -32,8 +32,10 @@ Projeto de visão computacional utilizando diferentes arquiteturas de CNN para c
 
 ## 📁 Estrutura do dataset
 
+Por ser um dataset pequeno optamos por deixar no próprio repositório, devido aos problemas com Google Colab
+
 ```
-.
+.farmtech_yolo_project
 └── dataset
     ├── results
     ├── test
