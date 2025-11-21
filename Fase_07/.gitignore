@@ -1,0 +1,14 @@
+# Ignorar arquivos temporários do R
+
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.env
+**/*.localz
+**/*.local
+**/*.git
+**/*.DS_Store
+**/*.pkl
+/Fase_04/src/model/*.pkl
+.pkl
