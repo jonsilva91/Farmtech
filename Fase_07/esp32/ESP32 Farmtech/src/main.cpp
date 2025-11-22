@@ -7,11 +7,11 @@
 // =======================
 // CONFIG WIFI + API
 // =======================
-const char* WIFI_SSID = "Jonas-2.4G";
-const char* WIFI_PASS = "jonas1710";
+const char* WIFI_SSID = "WI-FI";
+const char* WIFI_PASS = "PASSWORD";
 
 // Exemplo: "http://192.168.0.10:8000/api/leituras/esp32"
-const char* API_URL  = "http://192.168.18.224:8000/api/leituras/esp32";
+const char* API_URL  = "http://0.0.0.0:8000/api/leituras/esp32";
 
 // Área de plantio associada a este ESP32
 const int CD_AREA = 8;
