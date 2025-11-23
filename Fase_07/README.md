@@ -15,9 +15,7 @@
 ## 👨‍🎓 Integrantes
 
 - <a href="https://www.linkedin.com/in/jonas-silva-0a659892/">Jonas Luis da Silva</a>
-- <a href="https://www.linkedin.com/in/renan-francisco-de-paula-b3320915b/overlay/about-this-profile/">Renan Francisco de Paula</a>
 - <a href="https://www.linkedin.com/in/jo%C3%A3o-vitor-severo-oliveira-87904134b/">João Vitor Severo Oliveira</a>
-- <a href="https://www.linkedin.com/in/isagomesferreira/">Isabelle Gomes Ferreira</a>
 - <a href="https://www.linkedin.com/in/edson-henrique-felix-batista-a00191123/">Edson Henrique Felix Batista</a>
 
 ## 👩‍🏫 Professores
@@ -63,9 +61,6 @@ FarmTech/
        └── assets/
           └── logo-fiap.png
 ```
-
-> Observação: as pastas `Fase_05` e `Fase_06` possuem **READMEs próprios**, notebooks e arquivos pesados
-> (datasets, imagens YOLO etc.). Aqui só deixamos o link e o contexto para navegação.
 
 ---
 
@@ -286,7 +281,7 @@ _(Espaço reservado para descrever, se necessário, a integração futura com AW
   - Solo: regressão para previsão de CVA em várias profundidades (30–150 cm).
   - Fertilizante: classificação via XGBoost (ou similar) com scaler + encoders.
 
-### ☁️ Espaço reservado — Serviço de Alerta na AWS (Fase 07, Entrega 2)
+### ☁️ Serviço de Alerta na AWS (Fase 07, Entrega 2)
 
 Conforme o enunciado da Fase 07, há uma segunda parte de entrega envolvendo **mensageria na AWS** (e-mail ou SMS para funcionários da fazenda, com alertas de sensor ou visão computacional).
 
