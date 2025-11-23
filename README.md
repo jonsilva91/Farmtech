@@ -17,8 +17,8 @@ Este repositório está organizado da seguinte forma:
   - **Notebook:** [Jonas_rm561465_pbl_fase5.ipynb](Fase_05/src/notebooks/Jonas_rm561465_pbl_fase5.ipynb).
   - **Vídeos (não listados):** links no README da Fase 05 (Entrega 1 e Entrega 2).
 
-  - 📁 [Fase 06](Fase_06/README.md): Visão Computacional
-  - 📁 [Fase 07](Fase_07/README.md): Consolidação do Sistema
+- 📁 [Fase 06](Fase_06/README.md): Visão Computacional
+- 📁 [Fase 07](Fase_07/README.md): Consolidação do Sistema
 
 ## 👨‍🏫 Professores
 
