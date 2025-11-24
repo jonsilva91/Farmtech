@@ -1,0 +1,103 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Dados e logs
+*.db
+*.db-journal
+*.log
+*.sqlite
+*.sqlite3
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Documentação
+README.md
+*.md
+docs/
+
+# Testes
+tests/
+pytest.ini
+.pytest_cache/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Configuração local
+.env
+.env.*
+*.local
+
+# Notebooks e análises
+notebooks/
+*.ipynb
+ir_alem/
+
+# Frontend (Streamlit) - não necessário na API FastAPI
+# NOTA: Comentado para permitir build do Dockerfile.streamlit
+# src/Home.py
+# src/pages/
+# src/style/
+# src/interface.py
+# src/dados.py
+# src/validacao_dados.py
+# src/clima_api.py
+# src/irrigar.py
+# src/main.py
+
+# Modelos ML (carregar do S3 em produção)
+src/model/
+*.pkl
+*.h5
+*.pt
+*.pth
+
+# Datasets
+*.csv
+*.json
+*.parquet
+
+# Temporários
+tmp/
+temp/
+*.tmp
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db

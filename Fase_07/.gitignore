@@ -12,3 +12,4 @@
 **/*.pkl
 /Fase_04/src/model/*.pkl
 .pkl
+**/*venv
