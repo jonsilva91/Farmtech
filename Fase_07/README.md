@@ -34,7 +34,7 @@
 ## 🔗 Links principais
 
 - **Repositório:** `https://github.com/jonsilva91/FarmTech`
-- **Vídeo geral da Fase 07 (integração do sistema):** _[inserir link do vídeo não listado aqui]_
+- **Vídeo geral da Fase 07 (integração do sistema):** `https://jaojitsu.github.io/video-entrega`
 
 ---
 
