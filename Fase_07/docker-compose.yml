@@ -1,0 +1,163 @@
+version: '3.8'
+
+services:
+  # ============================================
+  # FastAPI - IoT API
+  # ============================================
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: farmtech-api:latest
+    container_name: farmtech-api
+    ports:
+      - "8000:8000"
+    environment:
+      # AWS Configuração (usar .env ou substituir aqui)
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SNS_TOPIC_ARN=${AWS_SNS_TOPIC_ARN}
+
+      # Thresholds de alertas
+      - ALERT_UMIDADE_MIN=${ALERT_UMIDADE_MIN:-40.0}
+      - ALERT_UMIDADE_MAX=${ALERT_UMIDADE_MAX:-80.0}
+      - ALERT_PH_MIN=${ALERT_PH_MIN:-5.5}
+      - ALERT_PH_MAX=${ALERT_PH_MAX:-7.5}
+      - ALERT_FOSFORO_MIN=${ALERT_FOSFORO_MIN:-20.0}
+      - ALERT_POTASSIO_MIN=${ALERT_POTASSIO_MIN:-150.0}
+
+      # Banco de dados (SQLite local ou PostgreSQL)
+      - DB_TYPE=${DB_TYPE:-sqlite}
+      - DB_HOST=${DB_HOST:-db}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_NAME=${DB_NAME:-farmtech}
+      - DB_USER=${DB_USER:-farmtech_user}
+      - DB_PASSWORD=${DB_PASSWORD:-farmtech_password}
+
+    volumes:
+      # Persistir banco SQLite (desenvolvimento)
+      - ./src/fase2_database/config:/app/fase2_database/config
+      # Logs
+      - ./logs:/app/logs
+
+    networks:
+      - farmtech-network
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    restart: unless-stopped
+
+    depends_on:
+      - db
+
+  # ============================================
+  # Streamlit - Dashboard Web
+  # ============================================
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    image: farmtech-dashboard:latest
+    container_name: farmtech-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SNS_TOPIC_ARN=${AWS_SNS_TOPIC_ARN}
+      - DB_TYPE=${DB_TYPE:-sqlite}
+      - DB_HOST=${DB_HOST:-db}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_NAME=${DB_NAME:-farmtech}
+      - DB_USER=${DB_USER:-farmtech_user}
+      - DB_PASSWORD=${DB_PASSWORD:-farmtech_password}
+    volumes:
+      - ./src/fase2_database/config:/app/fase2_database/config
+      - ./src/model:/app/model
+    networks:
+      - farmtech-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    depends_on:
+      - db
+      - api
+
+  # ============================================
+  # PostgreSQL - Banco de Dados (Opcional)
+  # ============================================
+  db:
+    image: postgres:15-alpine
+    container_name: farmtech-db
+    environment:
+      POSTGRES_DB: farmtech
+      POSTGRES_USER: farmtech_user
+      POSTGRES_PASSWORD: farmtech_password
+      POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"
+    ports:
+      - "5432:5432"
+    volumes:
+      # Persistir dados
+      - postgres-data:/var/lib/postgresql/data
+      # Scripts de inicialização (opcional)
+      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - farmtech-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U farmtech_user -d farmtech"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ============================================
+  # pgAdmin - Interface Web para PostgreSQL (Opcional)
+  # ============================================
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: farmtech-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@farmtech.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - farmtech-network
+    depends_on:
+      - db
+    restart: unless-stopped
+    profiles:
+      - tools  # Só inicia se especificar: docker-compose --profile tools up
+
+# ============================================
+# Volumes
+# ============================================
+volumes:
+  postgres-data:
+    driver: local
+  pgadmin-data:
+    driver: local
+
+# ============================================
+# Networks
+# ============================================
+networks:
+  farmtech-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
