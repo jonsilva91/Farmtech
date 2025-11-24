@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Dict
+import os
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -8,7 +9,11 @@ from fase2_database.data.conexao import SQLiteDB
 from fase2_database.data.crud_sensor import inserir_sensor, listar_sensores
 from fase2_database.data.crud_leitura import inserir_leitura
 
-app = FastAPI()
+app = FastAPI(
+    title="FarmTech IoT API",
+    description="API para receber dados de sensores IoT e gerenciar alertas agrícolas",
+    version="1.0.0"
+)
 
 
 class LeituraPayload(BaseModel):
@@ -47,8 +52,54 @@ def get_or_create_sensor(cursor, mapa, tp_sensor, cd_area, nm_modelo="ESP32_API"
     return cd_sensor
 
 
+@app.get("/")
+def root():
+    """Endpoint raiz - informações da API"""
+    return {
+        "service": "FarmTech IoT API",
+        "version": "1.0.0",
+        "status": "online",
+        "endpoints": {
+            "health": "/health",
+            "health_check": "/health-check",
+            "docs": "/docs",
+            "iot_data": "/api/leituras/esp32"
+        }
+    }
+
+
+@app.get("/health")
+def health():
+    """Health check endpoint - verificação de saúde da API"""
+    try:
+        # Testar conexão com banco de dados
+        with SQLiteDB() as db:
+            db.cursor.execute("SELECT 1")
+
+        return {
+            "status": "healthy",
+            "timestamp": datetime.now().isoformat(),
+            "database": "connected",
+            "service": "FarmTech IoT API"
+        }
+    except Exception as e:
+        return {
+            "status": "unhealthy",
+            "timestamp": datetime.now().isoformat(),
+            "database": "disconnected",
+            "error": str(e)
+        }
+
+
+@app.get("/health-check")
+def health_check():
+    """Health check endpoint alternativo"""
+    return health()
+
+
 @app.post("/api/leituras/esp32")
 def receber_leitura(payload: LeituraPayload):
+    """Recebe leituras de sensores do ESP32"""
     with SQLiteDB() as db:
         cursor = db.cursor
         mapa = carregar_mapa_sensores(cursor, payload.cd_area)
@@ -67,5 +118,9 @@ def receber_leitura(payload: LeituraPayload):
             cd_sensor = get_or_create_sensor(cursor, mapa, tp, payload.cd_area)
             inserir_leitura(cursor, cd_sensor, datetime.now(), valor)
 
-    return {"status": "ok"}
+    return {
+        "status": "ok",
+        "cd_area": payload.cd_area,
+        "timestamp": datetime.now().isoformat()
+    }
 
